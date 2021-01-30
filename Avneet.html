@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+        }
+
+        .header {
+            text-align: center;
+            padding: 32px;
+        }
+        .name{
+            font-family: 'Sofia', sans-serif;
+            color: whitesmoke;
+        }
+
+        .row {
+            
+            display: -ms-flexbox;
+            /* IE 10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE 10 */
+            flex-wrap: wrap;
+            padding: 0 4px;
+        }
+
+        /* Create two equal columns that sits next to each other */
+        .column {
+            
+            -ms-flex: 25%;
+            /* IE 10 */
+            flex: 25%;
+            padding: 0 4px;
+        }
+
+        .column img {
+            
+            border-radius: 15px;
+            margin-top: 20px;
+            transition: 0.4s;
+            filter:grayscale(100%) ;
+            
+            
+            vertical-align: middle;
+        }
+        .column img:hover{
+            transform: scale(1.1);
+            filter:grayscale(0%);
+            filter: blur(0px);
+        }
+
+        /* Style the buttons */
+        .btn {
+            color: blanchedalmond;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            padding: 10px 16px;
+            background-color: black;
+            cursor: pointer;
+            font-size: 18px;
+            border: 2px solid #e7e7e7;
+            transition-duration: 0.4s;
+        }
+
+        .btn:hover {
+            color: black;
+            background-color: #e7e7e7;
+            font-size: 20px;
+        }
+
+        .btn.active {
+            background-color:   gray;
+            color: white;
+        }
+
+        .insta_logo{
+            transform: scale(0.05);
+            position: relative;
+            
+        }
+    </style>
+</head>
+
+<body>
+
+    <Header>
+    <div class="header" id="myHeader">
+        <h1 class="name" id="Heading">Avneet Kaur</h1>
+        <button class="btn" onclick="location.href='test.html'">Kashish Kapoor</button>
+        <button class="btn" onclick="location.href='peter.html'">Peter</button>
+    </div>
+
+    <!-- Photo Grid -->
+    <div class="row">
+        <div class="column" id="colomn_1">
+        
+        </div>
+        <div class="column" id="colomn_2">
+         
+        </div>
+        <div class="column"id="colomn_3">
+         
+        </div>
+        <div class="column"id="colomn_4">
+           
+        </div>
+        
+        
+    </div>
+
+  <!--  <img src="https://cdn.freebiesupply.com/images/large/2x/instagram-icon-white-on-black.png" class="insta_logo"> -->
+    <script>
+        
+        let request = new XMLHttpRequest();
+        request.open('GET', 'https://raw.githubusercontent.com/lucid-hub/test-website/main/avneet.json');
+        request.responseType = 'json';
+        request.send();
+        request.onload = function() {
+            const superHeroes = request.response;
+            console.log(superHeroes)
+            var colomn_number = ["","colomn_1","colomn_2","colomn_3","colomn_4"];
+            var a = 0;
+            for(i=0;i<50;i++){
+            if(i % 12 == 0){a++}
+            var photo = document.getElementById(colomn_number[a]);
+            photo.insertAdjacentHTML("beforeend",'<img src="'+superHeroes.user.edge_owner_to_timeline_media.edges[i].node.display_resources[0].src+'" alt="Cannot Load Image" id="image" style="width:100%" >')
+        }
+            }
+        console.log(request)
+
+        
+    </script>
+
+</body>
+
+</html>
