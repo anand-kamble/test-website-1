@@ -1,5 +1,5 @@
 <?php
 
-include_once("peter.html")
+include_once("demo.html")
 
 ?>
