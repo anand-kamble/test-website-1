@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>DEMO</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat Alternates' rel='stylesheet'>
+    <style>
+        body{
+            background-color: black;
+            
+        }
+        .row {
+            
+            display: -ms-flexbox;
+            /* IE 10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE 10 */
+            flex-wrap: wrap;
+            padding: 0 4px;
+        }
+
+        .column {
+            
+            -ms-flex: 25%;
+            /* IE 10 */
+            flex: 25%;
+            padding: 0 4px;
+        }
+        .instagram_profile {
+        /* CSS styles here */
+        }
+        
+        .instagram_profile_image {
+        /* CSS styles here */
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        transition: 0.4s;
+        }
+        .instagram_profile_image:hover{
+        
+            transform: scale(1.5);
+        }
+
+        .instagram_username {
+        /* CSS styles here */
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: whitesmoke;
+        text-align: center;
+        }
+        .instagram_username a {
+        /* CSS styles here */
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: whitesmoke;
+        
+        }
+
+        .instagram_biography {
+        /* CSS styles here */
+        }
+        .column img {
+            
+            /*border-radius: 15px;*/
+            margin-top: 20px;
+            transition: 0.4s;
+            filter:grayscale(100%) ;
+            transform: scale(0.9);
+            
+            vertical-align: middle;
+        }
+        .column img:hover{
+            transform: scale(1);
+            filter:grayscale(0%);
+            filter: blur(0px);
+        }
+        .instagram_gallery {
+        /* CSS styles here */
+            width: 25%;
+            display: grid;
+            margin-top: 20px;
+            transition: 0.4s;
+            filter:grayscale(100%) ;
+            
+            
+            vertical-align: middle;
+        }
+
+        .instagram_gallery a img{
+            margin-top: 20px;
+            transition: 0.4s;
+            filter:grayscale(100%) ;
+            
+            
+            vertical-align: middle;
+        }
+        .input_form{
+            text-align: center;
+        }
+        input[type=text] {
+        width: 25%;
+        border-radius: 30px;
+        background-color: gray;
+        padding: 12px 20px;
+        align-content: center;
+        box-sizing: border-box;
+        border: 3px solid whitesmoke;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+        }
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: black;
+        opacity: 1; /* Firefox */
+        }
+        input[type=text]:focus {
+        border: 3px solid rgb(245, 132, 255);
+        }
+        input[type="submit"]{
+            background-color: rgb(135, 74, 141); /* Green */
+            border: none;
+            border-radius: 30px;
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+        input[type="submit"]:focus{
+            background-color:rgb(245, 132, 255);
+        }
+        
+        h1{
+            font-family: 'Montserrat Alternates';
+            color: blanchedalmond;
+        }
+        .private_div{
+            text-align: center;
+        }
+        .credit{
+            font-family: 'Montserrat Alternates';
+            margin-top: 80vh;
+            color: whitesmoke;
+            float: left;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            text-align: center;
+            bottom: 0px;
+            width: 100%;
+        }
+        .btn {
+            text-align: center;
+            color: blanchedalmond;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            padding: 10px 16px;
+            background-color: black;
+            cursor: pointer;
+            font-size: 18px;
+            border: 2px solid #e7e7e7;
+            transition-duration: 0.4s;
+        }
+
+        .btn:hover {
+            color: black;
+            background-color: #e7e7e7;
+            font-size: 20px;
+        }
+
+        .btn.active {
+            background-color:   gray;
+            color: white;
+        }
+    </style>
+  
+    
+</head>
+<body>
+    <div class="input_form" id="form_division">
+        <form id="search">
+            <input type="text" id="username" placeholder="ENTER USERNAME (without @)" required>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <p id="jsonHere"></p>
+    <div class="private_div">
+    <h1 class="private" id="private_account"></h1>
+    </div>
+    <div class="row">
+        <div class="column" id="colomn_1">
+        
+        </div>
+        <div class="column" id="colomn_2">
+         
+        </div>
+        <div class="column"id="colomn_3">
+         
+        </div>
+        <div class="column"id="colomn_4">
+           
+        </div>
+    
+        
+    </div>
+    <div style="text-align: center;" id="reload_btn">
+        <!--<button class="btn" onclick="location.reload()">Search another Account</button>-->
+    </div>
+    <div class="credit">
+        <p>Devoloped by ANKAM</p>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="jquery.instagramFeed.min.js"></script>
+<script>
+        
+        $(document).ready(function(){
+            $("#search").submit(function(e){
+                e.preventDefault()
+                var username = $("#username").val()
+
+                $.instagramFeed({
+                    'username': username,
+                    'items':20,
+                    'display_profile': true,
+                    'display_biography': true,
+                    'display_igtv': false,
+                    'callback': async function(data){
+                   // $('#jsonHere').html(JSON.stringify(data, null, 2));
+                    console.log(data.is_private)
+                    //console.log(data.edge_owner_to_timeline_media.edges[0].node.thumbnail_resources[4].src)
+                    
+                    if(data.is_private == true ){
+                        var private = await document.getElementById("private_account")
+                        await private.insertAdjacentHTML("beforeend",'Private Account');
+                        var rld_btn = await document.getElementById("reload_btn");
+                        await rld_btn.insertAdjacentHTML("beforeend",'<button class="btn" onclick="location.reload()">Search another Account</button>')
+                    }
+                    else{
+                        var form_div = await document.getElementById("form_division")
+                        form_div.remove();
+                        var private = await document.getElementById("private_account")
+                        await private.insertAdjacentHTML("beforeend",username);
+
+                        var colomn_number = ["","colomn_1","colomn_2","colomn_3","colomn_4"];
+              
+                        var a = 0;
+                        for(i=0;i<data.edge_owner_to_timeline_media.edges.length;i++){
+                            if(a>2){ a = 1 }else{a++};
+                            if(a<5){var photo = await document.getElementById(colomn_number[a]);
+                            //photo.remove()
+                            await photo.insertAdjacentHTML("beforeend",'<img src="'+data.edge_owner_to_timeline_media.edges[i].node.thumbnail_resources[4].src+'" alt="Cannot Load Image" id="image" style="width:100%" class="Loaded_image">')
+                            }
+                        }
+
+                        var rld_btn = await document.getElementById("reload_btn");
+                        await rld_btn.insertAdjacentHTML("beforeend",'<button class="btn" onclick="location.reload()">Search another Account</button>')
+                    }
+                    }
+                })
+
+                
+                
+            })
+        })
+    //    let
+</script>
+</html>
