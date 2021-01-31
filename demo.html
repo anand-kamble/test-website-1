@@ -3,8 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Instagram Photo Viewer</title>
-    <link rel = "icon" href = "https://yt3.ggpht.com/ytc/AAUvwnjQ7seTQTM9rcDbWPrvOkdyotm5qCrTcdA4iO6Hgg=s88-c-k-c0x00ffffff-no-rj" type = "image/x-icon">
+    <title>DEMO</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat Alternates' rel='stylesheet'>
     <style>
@@ -15,10 +14,10 @@
         .row {
             
             display: -ms-flexbox;
-            /* IE 10 */
+           
             display: flex;
             -ms-flex-wrap: wrap;
-            /* IE 10 */
+           
             flex-wrap: wrap;
             padding: 0 4px;
         }
@@ -26,16 +25,14 @@
         .column {
             
             -ms-flex: 25%;
-            /* IE 10 */
+           
             flex: 25%;
             padding: 0 4px;
         }
-        .instagram_profile {
-        /* CSS styles here */
-        }
+        
         
         .instagram_profile_image {
-        /* CSS styles here */
+        
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -47,24 +44,22 @@
         }
 
         .instagram_username {
-        /* CSS styles here */
+        
         font-family: Georgia, 'Times New Roman', Times, serif;
         color: whitesmoke;
         text-align: center;
         }
         .instagram_username a {
-        /* CSS styles here */
+       
         font-family: Georgia, 'Times New Roman', Times, serif;
         color: whitesmoke;
         
         }
 
-        .instagram_biography {
-        /* CSS styles here */
-        }
+        
         .column img {
             
-            /*border-radius: 15px;*/
+            
             margin-top: 20px;
             transition: 0.4s;
             filter:grayscale(100%) ;
@@ -77,8 +72,9 @@
             filter:grayscale(0%);
             filter: blur(0px);
         }
+        
         .instagram_gallery {
-        /* CSS styles here */
+       
             width: 25%;
             display: grid;
             margin-top: 20px;
@@ -135,7 +131,7 @@
             background-color:rgb(245, 132, 255);
         }
         
-        h1{
+        .heading{
             font-family: 'Montserrat Alternates';
             color: blanchedalmond;
         }
@@ -177,6 +173,77 @@
             background-color:   gray;
             color: white;
         }
+        .modal {
+                display: none; 
+                position: fixed; 
+                z-index: 1; 
+                padding-top: 100px; 
+                left: 0;
+                top: 0;
+                width: 100%; 
+                height: 100%; 
+                overflow: auto; 
+                background-color: rgb(0,0,0); 
+                background-color: rgba(0,0,0,0.9); 
+                }
+
+                
+                .modal-content {
+                margin: auto;
+                display: block;
+                width: 80%;
+                max-width: 700px;
+                }
+
+                
+                #caption {
+                margin: auto;
+                display: block;
+                width: 80%;
+                max-width: 700px;
+                text-align: center;
+                color: #ccc;
+                padding: 10px 0;
+                height: 150px;
+                }
+
+                
+                .modal-content, #caption {
+                animation-name: zoom;
+                animation-duration: 0.6s;
+                }
+                @-webkit-keyframes zoom {
+                from {-webkit-transform:scale(0)} 
+                to {-webkit-transform:scale(1)}
+                }
+
+                @keyframes zoom {
+                from {transform:scale(0)} 
+                to {transform:scale(1)}
+                }
+
+                
+                .close {
+                position: absolute;
+                top: 15px;
+                right: 35px;
+                color: #f1f1f1;
+                font-size: 40px;
+                font-weight: bold;
+                transition: 0.3s;
+                }
+
+                .close:hover,
+                .close:focus {
+                color: #bbb;
+                text-decoration: none;
+                cursor: pointer;
+                }
+                @media only screen and (max-width: 700px){
+    .modal-content {
+     width: 100%;
+    }
+    }
     </style>
   
     
@@ -192,6 +259,18 @@
     <div class="private_div">
     <h1 class="private" id="private_account"></h1>
     </div>
+    <div id="myModal" class="modal">
+
+        
+        <span class="close">&times;</span>
+      
+        
+        <img class="modal-content" id="img01">
+      
+       
+        <div id="caption"></div>
+      </div>
+
     <div class="row">
         <div class="column" id="colomn_1">
         
@@ -209,7 +288,7 @@
         
     </div>
     <div style="text-align: center;" id="reload_btn">
-        <!--<button class="btn" onclick="location.reload()">Search another Account</button>-->
+        
     </div>
     <div class="credit">
         <p>Devoloped by ANKAM</p>
@@ -231,9 +310,7 @@
                     'display_biography': true,
                     'display_igtv': false,
                     'callback': async function(data){
-                   // $('#jsonHere').html(JSON.stringify(data, null, 2));
-                    console.log(data.is_private)
-                    //console.log(data.edge_owner_to_timeline_media.edges[0].node.thumbnail_resources[4].src)
+                 
                     
                     if(data.is_private == true ){
                         var private = await document.getElementById("private_account")
@@ -245,7 +322,7 @@
                         var form_div = await document.getElementById("form_division")
                         form_div.remove();
                         var private = await document.getElementById("private_account")
-                        await private.insertAdjacentHTML("beforeend",username);
+                        await private.insertAdjacentHTML("beforeend",'<a href = "https://www.instagram.com/'+username+'" class ="heading">@'+username+'</a>');
 
                         var colomn_number = ["","colomn_1","colomn_2","colomn_3","colomn_4"];
               
@@ -254,12 +331,16 @@
                             if(a>2){ a = 1 }else{a++};
                             if(a<5){var photo = await document.getElementById(colomn_number[a]);
                             //photo.remove()
-                            await photo.insertAdjacentHTML("beforeend",'<img src="'+data.edge_owner_to_timeline_media.edges[i].node.thumbnail_resources[4].src+'" alt="Cannot Load Image" id="image" style="width:100%" class="Loaded_image">')
+                            await photo.insertAdjacentHTML("beforeend",'<img src="'+data.edge_owner_to_timeline_media.edges[i].node.thumbnail_resources[4].src+'" alt="'+data.edge_owner_to_timeline_media.edges[i].node.edge_media_to_caption.edges[0].node.text+'" id="image_'+i+'" style="width:100%" class="Loaded_image" onclick="largeimg('+i+')">');
+                                                                                    
                             }
                         }
 
                         var rld_btn = await document.getElementById("reload_btn");
                         await rld_btn.insertAdjacentHTML("beforeend",'<button class="btn" onclick="location.reload()">Search another Account</button>')
+                    
+                        
+                    
                     }
                     }
                 })
@@ -268,6 +349,27 @@
                 
             })
         })
-    //    let
+
+        var modal = document.getElementById("myModal");
+        function largeimg(image_number){
+            
+            var img = document.getElementById("image_"+image_number);
+         
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            var url = document.getElementById("image_"+image_number).getAttribute("src")
+            var caption = document.getElementById("image_"+image_number).getAttribute("alt")
+         
+            modal.style.display = "block";
+            modalImg.src = url ;
+            captionText.innerHTML = caption;
+        }
+
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() { 
+        modal.style.display = "none";
+        }
+
+
 </script>
 </html>
